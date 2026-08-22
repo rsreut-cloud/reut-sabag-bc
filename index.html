@@ -284,26 +284,6 @@
     animation:rise .7s cubic-bezier(.2,.8,.2,1) .3s forwards;
   }
 
-  .toast{
-    position:fixed;
-    left:50%;
-    bottom:26px;
-    transform:translateX(-50%) translateY(20px);
-    background:var(--ink);
-    color:#fff;
-    padding:12px 20px;
-    border-radius:999px;
-    font-size:13.5px;
-    font-weight:500;
-    text-align:center;
-    box-shadow:0 10px 24px rgba(0,0,0,0.25);
-    opacity:0;
-    pointer-events:none;
-    transition:opacity .25s ease, transform .25s ease;
-    z-index:20;
-  }
-  .toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
-
   @keyframes rise{ to{ opacity:1; transform:translateY(0); } }
 
   @media (prefers-reduced-motion:reduce){
@@ -366,58 +346,17 @@
   </main>
 </div>
 
-<div class="toast" id="toast" role="status" aria-live="polite"></div>
-
 <script>
-(function(){
-  var vcard = "BEGIN:VCARD\r\nVERSION:3.0\r\nN:סבג;רעות;;;\r\nFN:רעות סבג\r\nORG:סטודיו לפתרונות דיגיטליים\r\nTEL;TYPE=CELL,VOICE:+972515707711\r\nEMAIL;TYPE=INTERNET:rs.reut@gmail.com\r\nURL:https://reutsabag.com\r\nURL:https://www.linkedin.com/in/reut-sabag/\r\nNOTE:הופכת תהליכים מורכבים למערכות פשוטות\r\nEND:VCARD\r\n";
-
-  var toastEl = document.getElementById('toast');
-  var toastTimer;
-  function toast(msg){
-    toastEl.textContent = msg;
-    toastEl.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(function(){ toastEl.classList.remove('show'); }, 3200);
-  }
-
-  function copyText(text){
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      return navigator.clipboard.writeText(text);
+document.getElementById('saveBtn').addEventListener('click', async function(){
+  try {
+    const res = await fetch('/reut-sabag.vcf');
+    const text = await res.text();
+    const file = new File([text], 'reut-sabag.vcf', { type: 'text/vcard' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'רעות סבג' });
+      return;
     }
-    return new Promise(function(resolve,reject){
-      try{
-        var ta=document.createElement('textarea');
-        ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
-        document.body.appendChild(ta); ta.focus(); ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
-        resolve();
-      }catch(e){ reject(e); }
-    });
-  }
-
-  var readableContact = "רעות סבג\nסטודיו לפתרונות דיגיטליים\nטלפון: 051-5707711\nאימייל: rs.reut@gmail.com\nאתר: https://reutsabag.com\nלינקדאין: https://www.linkedin.com/in/reut-sabag/";
-
-  document.getElementById('saveBtn').addEventListener('click', function(){
-    try{
-      var blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
-      var url = URL.createObjectURL(blob);
-      var a = document.createElement('a');
-      a.href = url;
-      a.download = "reut-sabag.vcf";
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-      toast("איש הקשר נשמר — פתחו את הקובץ כדי להוסיף לאנשי הקשר");
-    }catch(e){
-      copyText(readableContact).then(function(){
-        toast("פרטי הקשר הועתקו — אפשר להדביק באיש קשר חדש");
-      }).catch(function(){
-        toast("051-5707711 · rs.reut@gmail.com");
-      });
-    }
-  });
-})();
+  } catch (e) {}
+  window.location.href = '/reut-sabag.vcf';
+});
 </script>
