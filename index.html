@@ -310,10 +310,10 @@
 
     <section class="actions">
       <div class="primary-grid">
-        <button class="primary-btn" id="saveBtn" type="button">
+        <a class="primary-btn" href="/reut-sabag.vcf">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M17 8h5m-2.5-2.5v5" stroke-width="2"/></svg>
           שמירה
-        </button>
+        </a>
         <a class="primary-btn" href="https://wa.me/972515707711" target="_blank" rel="noopener">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.39 1.26 4.81L2 22l5.42-1.34a9.9 9.9 0 0 0 4.62 1.15h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2Zm5.8 14.02c-.24.68-1.4 1.3-1.93 1.36-.5.06-1.02.26-3.41-.71-2.89-1.16-4.72-4.1-4.87-4.29-.14-.19-1.17-1.56-1.17-2.98s.75-2.11 1.02-2.4c.26-.28.57-.35.76-.35h.55c.18 0 .42-.03.64.49.24.56.8 1.94.87 2.08.07.14.11.31.02.5-.09.19-.14.31-.28.48-.14.16-.29.36-.42.49-.14.14-.28.29-.12.56.16.28.72 1.19 1.55 1.92 1.06.95 1.96 1.24 2.24 1.38.28.14.44.12.6-.07.16-.19.68-.79.87-1.06.18-.28.36-.23.61-.14.24.09 1.55.73 1.82.87.26.14.44.2.5.31.06.12.06.68-.18 1.36Z"/></svg>
           וואטסאפ
@@ -345,18 +345,3 @@
     <p class="footer">רעות סבג · סטודיו לפתרונות דיגיטליים</p>
   </main>
 </div>
-
-<script>
-document.getElementById('saveBtn').addEventListener('click', async function(){
-  try {
-    const res = await fetch('/reut-sabag.vcf');
-    const text = await res.text();
-    const file = new File([text], 'reut-sabag.vcf', { type: 'text/vcard' });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: 'רעות סבג' });
-      return;
-    }
-  } catch (e) {}
-  window.location.href = '/reut-sabag.vcf';
-});
-</script>
