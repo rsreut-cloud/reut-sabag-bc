@@ -273,6 +273,39 @@
     outline-offset:3px;
   }
 
+  .form-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    width:100%;
+    text-decoration:none;
+    font-family:inherit;
+    font-size:15px;
+    font-weight:500;
+    color:var(--accent-deep);
+    background:var(--accent-tint);
+    padding:14px 16px;
+    border-radius:var(--radius-m);
+    box-shadow:
+      4px 5px 12px var(--shadow-d-soft),
+      -4px -4px 10px var(--shadow-l),
+      inset 0 1px 0 rgba(255,255,255,0.5);
+    transition:transform .12s ease, box-shadow .12s ease;
+  }
+  .form-btn svg{ width:18px; height:18px; flex:none; }
+  .form-btn:hover{ transform:translateY(-2px); }
+  .form-btn:active{
+    transform:translateY(1px) scale(.99);
+    box-shadow:
+      inset 3px 3px 8px var(--shadow-d-soft),
+      inset -3px -3px 7px var(--shadow-l);
+  }
+  .form-btn:focus-visible{
+    outline:3px solid var(--accent-deep);
+    outline-offset:3px;
+  }
+
   .footer{
     text-align:center;
     margin-top:8px;
@@ -290,7 +323,7 @@
     .hero,.signature,.actions,.footer{ animation:none !important; opacity:1 !important; transform:none !important; }
     .signature-wrap{ transition:none !important; }
     .signature-wrap:hover{ transform:none !important; }
-    .primary-btn,.tile{ transition:none !important; }
+    .primary-btn,.tile,.form-btn{ transition:none !important; }
   }
 </style>
 
@@ -334,6 +367,11 @@
           <span class="tile__label">לינקדאין</span>
         </a>
       </div>
+
+      <a class="form-btn" href="https://forms.fillout.com/t/gtyiddb5Feus" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3.5 2"/></svg>
+        בהירות עסקית
+      </a>
     </section>
 
     <div class="signature" aria-hidden="true">
