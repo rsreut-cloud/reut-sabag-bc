@@ -400,18 +400,18 @@
   var readableContact = "רעות סבג\nסטודיו לפתרונות דיגיטליים\nטלפון: 051-5707711\nאימייל: rs.reut@gmail.com\nאתר: https://reutsabag.com\nלינקדאין: https://www.linkedin.com/in/reut-sabag/";
 
   document.getElementById('saveBtn').addEventListener('click', function(){
-    var shared = false;
     try{
-      if(navigator.canShare){
-        var file = new File([vcard], "reut-sabag.vcf", { type: "text/vcard" });
-        if(navigator.canShare({ files:[file] })){
-          navigator.share({ files:[file], title:"רעות סבג" }).catch(function(){});
-          shared = true;
-        }
-      }
-    }catch(e){ shared = false; }
-
-    if(!shared){
+      var blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" });
+      var url = URL.createObjectURL(blob);
+      var a = document.createElement('a');
+      a.href = url;
+      a.download = "reut-sabag.vcf";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toast("איש הקשר נשמר — פתחו את הקובץ כדי להוסיף לאנשי הקשר");
+    }catch(e){
       copyText(readableContact).then(function(){
         toast("פרטי הקשר הועתקו — אפשר להדביק באיש קשר חדש");
       }).catch(function(){
