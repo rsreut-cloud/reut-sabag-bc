@@ -1,4 +1,5 @@
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>רעות סבג — כרטיס ביקור</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,26 +31,30 @@
   html,body{margin:0;padding:0;}
   html{ overflow-x:hidden; }
   body{
-    background:var(--paper);
+    background:var(--paper-deep);
     color:var(--ink);
     font-family:"Rubik", Arial, sans-serif;
     direction:rtl;
-    min-height:100vh;
+    min-height:100dvh;
     display:flex;
     justify-content:center;
-    align-items:flex-start;
-    padding:clamp(16px,5vw,28px) clamp(12px,4vw,16px) 40px;
+    align-items:stretch;
+    padding:clamp(8px,2.5vw,14px);
     -webkit-text-size-adjust:100%;
     text-size-adjust:100%;
   }
 
   .stage{
     width:100%;
-    max-width:420px;
+    max-width:480px;
+    display:flex;
   }
 
   .card{
     position:relative;
+    width:100%;
+    display:flex;
+    flex-direction:column;
     background:var(--paper);
     border-radius:var(--radius-xl);
     padding:0 0 28px;
@@ -160,9 +165,11 @@
 
   /* ---------- ACTIONS ---------- */
   .actions{
+    flex:1;
     padding:clamp(20px,6vw,34px) clamp(16px,5.5vw,26px) 6px;
     display:flex;
     flex-direction:column;
+    justify-content:center;
     gap:18px;
     opacity:0;
     transform:translateY(10px);
